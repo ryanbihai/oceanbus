@@ -9,6 +9,7 @@ import { blockCommand } from './commands/block';
 import { keygenCommand } from './commands/keygen';
 import { keyNewCommand } from './commands/key-new';
 import { keyRevokeCommand } from './commands/key-revoke';
+import { addCommand } from './commands/add';
 
 export function runCli(argv: string[] = process.argv): void {
   yargs(hideBin(argv))
@@ -20,6 +21,7 @@ export function runCli(argv: string[] = process.argv): void {
     .command(sendCommand)
     .command(listenCommand)
     .command(blockCommand)
+    .command(addCommand)
     .command(keygenCommand)
     .command(keyNewCommand)
     .command(keyRevokeCommand)

@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../src/interceptors/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,MAAM,SAAS,CAAC;AAC3C,YAAY,EAAE,kBAAkB,EAAE,kBAAkB,EAAE,mBAAmB,EAAE,MAAM,SAAS,CAAC;AAC3F,OAAO,EAAE,cAAc,EAAE,uBAAuB,EAAE,aAAa,EAAE,MAAM,OAAO,CAAC;AAC/E,YAAY,EAAE,cAAc,EAAE,MAAM,OAAO,CAAC"}

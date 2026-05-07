@@ -1,5 +1,6 @@
 import type { CommandModule } from 'yargs';
 import { createOceanBus } from '../../index';
+import { resolveAlias } from '../contacts';
 
 interface SendArgs {
   openid: string;
@@ -8,12 +9,12 @@ interface SendArgs {
 
 export const sendCommand: CommandModule = {
   command: 'send <openid>',
-  describe: 'Send a message to a recipient OpenID',
+  describe: 'Send a message to a recipient OpenID or contact alias',
   builder: (yargs) =>
     yargs
       .positional('openid', {
         type: 'string',
-        describe: 'Recipient OpenID',
+        describe: 'Recipient OpenID or saved contact name',
         demandOption: true,
       })
       .option('message', {
@@ -28,8 +29,9 @@ export const sendCommand: CommandModule = {
         console.error('No message content. Use -m "message" or pipe content.');
         process.exit(1);
       }
+      const target = resolveAlias(argv.openid) || argv.openid;
       const ob = await createOceanBus();
-      await ob.send(argv.openid, content);
+      await ob.send(target, content);
       console.log(JSON.stringify({ code: 0, msg: 'sent' }));
     } catch (err) {
       console.error('Send failed:', (err as Error).message);
