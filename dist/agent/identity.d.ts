@@ -12,7 +12,9 @@ export declare class AgentIdentityManager {
     getCachedOpenId(): string | null;
     updateCredential(apiKey: string, agentId?: string): void;
     register(): Promise<RegistrationData>;
+    private savedOpenid;
     whoami(): Promise<OpenIDData>;
+    getSavedOpenid(): string | null;
     getOpenId(): Promise<string>;
     ensureRegistered(): Promise<AgentState>;
     toState(): AgentState;

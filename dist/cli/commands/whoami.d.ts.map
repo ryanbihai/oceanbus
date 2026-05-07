@@ -1,1 +1,1 @@
-{"version":3,"file":"whoami.d.ts","sourceRoot":"","sources":["../../../src/cli/commands/whoami.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,aAAa,EAAE,MAAM,OAAO,CAAC;AAG3C,eAAO,MAAM,aAAa,EAAE,aAa3B,CAAC"}
+{"version":3,"file":"whoami.d.ts","sourceRoot":"","sources":["../../../src/cli/commands/whoami.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,aAAa,EAAE,MAAM,OAAO,CAAC;AAG3C,eAAO,MAAM,aAAa,EAAE,aAkB3B,CAAC"}

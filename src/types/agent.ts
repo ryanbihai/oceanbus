@@ -16,6 +16,7 @@ export interface ApiKeyData {
 export interface AgentState {
   agent_id: string;
   api_key: string;
+  openid?: string;
   extra_keys: ApiKeyData[];
   created_at?: string;
 }

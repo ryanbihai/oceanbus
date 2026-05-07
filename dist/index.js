@@ -148,11 +148,19 @@ class OceanBus {
     // Identity convenience methods
     async register() {
         const data = await this.identity.register();
+        // Fetch and persist OpenID immediately
+        try {
+            await this.identity.whoami();
+        }
+        catch { }
         await this.keyStore.save(this.identity.toState());
         return data;
     }
     async whoami() {
         const data = await this.identity.whoami();
+        // Persist newly fetched OpenID
+        if (data.my_openid)
+            await this.keyStore.save(this.identity.toState());
         return { agent_id: this.identity.getAgentId(), openid: data.my_openid };
     }
     async getOpenId() {

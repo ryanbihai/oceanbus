@@ -66,14 +66,22 @@ export class AgentIdentityManager {
     return data;
   }
 
+  private savedOpenid: string | null = null;
+
   async whoami(): Promise<OpenIDData> {
     this.ensureAuth();
     const res = await this.http.get<OpenIDData>('/agents/me', { apiKey: this.apiKey! });
     this.openidCache = res.data.my_openid;
+    this.savedOpenid = res.data.my_openid;
     return res.data;
   }
 
+  getSavedOpenid(): string | null {
+    return this.savedOpenid;
+  }
+
   async getOpenId(): Promise<string> {
+    if (this.savedOpenid !== null) return this.savedOpenid;
     if (this.openidCache !== null) return this.openidCache;
     const data = await this.whoami();
     return data.my_openid;
@@ -94,6 +102,7 @@ export class AgentIdentityManager {
     return {
       agent_id: this.agentId,
       api_key: this.apiKey,
+      openid: this.savedOpenid || this.openidCache || undefined,
       extra_keys: this.extraKeys,
     };
   }
@@ -102,7 +111,8 @@ export class AgentIdentityManager {
     this.agentId = state.agent_id;
     this.apiKey = state.api_key;
     this.extraKeys = state.extra_keys || [];
-    this.openidCache = null;
+    this.openidCache = state.openid || null;
+    this.savedOpenid = state.openid || null;
   }
 
   trackExtraKey(key: ApiKeyData): void {
