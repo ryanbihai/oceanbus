@@ -1,6 +1,6 @@
 import type { CommandModule } from 'yargs';
 import { createOceanBus } from '../../index';
-import { resolveAlias } from '../contacts';
+import { resolveAlias, getMyOpenId } from '../contacts';
 
 interface SendArgs {
   openid: string;
@@ -29,8 +29,19 @@ export const sendCommand: CommandModule = {
         console.error('No message content. Use -m "message" or pipe content.');
         process.exit(1);
       }
-      const target = resolveAlias(argv.openid) || argv.openid;
+      const contactName = argv.openid;
+      const target = resolveAlias(contactName) || contactName;
       const ob = await createOceanBus();
+
+      // Show which myOpenId will be used for this contact
+      const myOpenId = getMyOpenId(contactName);
+      if (myOpenId && target !== contactName) {
+        // Only show when using an alias (not raw OpenID)
+        const shortId = myOpenId.slice(0, 12) + '...';
+        // Use stderr so stdout pipe still works cleanly
+        process.stderr.write(`[using your address: ${shortId}]\n`);
+      }
+
       await ob.send(target, content);
       console.log(JSON.stringify({ code: 0, msg: 'sent' }));
     } catch (err) {

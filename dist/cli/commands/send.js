@@ -24,8 +24,17 @@ exports.sendCommand = {
                 console.error('No message content. Use -m "message" or pipe content.');
                 process.exit(1);
             }
-            const target = (0, contacts_1.resolveAlias)(argv.openid) || argv.openid;
+            const contactName = argv.openid;
+            const target = (0, contacts_1.resolveAlias)(contactName) || contactName;
             const ob = await (0, index_1.createOceanBus)();
+            // Show which myOpenId will be used for this contact
+            const myOpenId = (0, contacts_1.getMyOpenId)(contactName);
+            if (myOpenId && target !== contactName) {
+                // Only show when using an alias (not raw OpenID)
+                const shortId = myOpenId.slice(0, 12) + '...';
+                // Use stderr so stdout pipe still works cleanly
+                process.stderr.write(`[using your address: ${shortId}]\n`);
+            }
             await ob.send(target, content);
             console.log(JSON.stringify({ code: 0, msg: 'sent' }));
         }

@@ -57,6 +57,7 @@ class RosterService {
             id,
             name: input.name,
             agents: input.agents || [],
+            myOpenId: input.myOpenId,
             tags: input.tags || [],
             aliases: input.aliases || [],
             notes: input.notes || '',
@@ -90,6 +91,8 @@ class RosterService {
             contact.name = patch.name;
         if (patch.agents !== undefined)
             contact.agents = patch.agents;
+        if (patch.myOpenId !== undefined)
+            contact.myOpenId = patch.myOpenId;
         if (patch.tags !== undefined)
             contact.tags = patch.tags;
         if (patch.aliases !== undefined)
@@ -122,6 +125,8 @@ class RosterService {
             throw new Error(`Contact "${id}" not found`);
         contact.apps[appName] = data;
         contact.updatedAt = new Date().toISOString();
+        if (contact.provenance)
+            contact.provenance.lastVerifiedAt = contact.updatedAt;
         await this.save();
         return contact;
     }

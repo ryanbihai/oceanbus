@@ -16,6 +16,7 @@ const keygen_1 = require("./commands/keygen");
 const key_new_1 = require("./commands/key-new");
 const key_revoke_1 = require("./commands/key-revoke");
 const add_1 = require("./commands/add");
+const contacts_1 = require("./commands/contacts");
 function runCli(argv = process.argv) {
     (0, yargs_1.default)((0, helpers_1.hideBin)(argv))
         .scriptName('oceanbus')
@@ -27,6 +28,7 @@ function runCli(argv = process.argv) {
         .command(listen_1.listenCommand)
         .command(block_1.blockCommand)
         .command(add_1.addCommand)
+        .command(contacts_1.contactsCommand)
         .command(keygen_1.keygenCommand)
         .command(key_new_1.keyNewCommand)
         .command(key_revoke_1.keyRevokeCommand)

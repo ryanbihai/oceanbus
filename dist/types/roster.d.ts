@@ -19,6 +19,7 @@ export interface Contact {
     id: string;
     name: string;
     agents: AgentRef[];
+    myOpenId?: string;
     tags: string[];
     aliases: string[];
     notes: string;
@@ -34,6 +35,7 @@ export interface NewContact {
     name: string;
     id?: string;
     agents?: AgentRef[];
+    myOpenId?: string;
     aliases?: string[];
     tags?: string[];
     notes?: string;
@@ -43,6 +45,7 @@ export interface NewContact {
 export interface ContactPatch {
     name?: string;
     agents?: AgentRef[];
+    myOpenId?: string;
     aliases?: string[];
     tags?: string[];
     notes?: string;

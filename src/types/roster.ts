@@ -28,7 +28,8 @@ export interface Provenance {
 export interface Contact {
   id: string;
   name: string;
-  agents: AgentRef[];
+  agents: AgentRef[];                       // 对方的 Agent 信息
+  myOpenId?: string;                        // 我分配给该联系人的专属 OpenID（保证会话连续性）
   tags: string[];
   aliases: string[];
   notes: string;
@@ -47,6 +48,7 @@ export interface NewContact {
   name: string;
   id?: string;
   agents?: AgentRef[];
+  myOpenId?: string;                        // 预先分配的专属 OpenID
   aliases?: string[];
   tags?: string[];
   notes?: string;
@@ -59,6 +61,7 @@ export interface NewContact {
 export interface ContactPatch {
   name?: string;
   agents?: AgentRef[];
+  myOpenId?: string;
   aliases?: string[];
   tags?: string[];
   notes?: string;

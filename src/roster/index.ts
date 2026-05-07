@@ -97,6 +97,7 @@ export class RosterService {
       id,
       name: input.name,
       agents: input.agents || [],
+      myOpenId: input.myOpenId,
       tags: input.tags || [],
       aliases: input.aliases || [],
       notes: input.notes || '',
@@ -133,6 +134,7 @@ export class RosterService {
 
     if (patch.name !== undefined) contact.name = patch.name;
     if (patch.agents !== undefined) contact.agents = patch.agents;
+    if (patch.myOpenId !== undefined) contact.myOpenId = patch.myOpenId;
     if (patch.tags !== undefined) contact.tags = patch.tags;
     if (patch.aliases !== undefined) contact.aliases = patch.aliases;
     if (patch.notes !== undefined) contact.notes = patch.notes;
@@ -165,6 +167,7 @@ export class RosterService {
 
     contact.apps[appName] = data;
     contact.updatedAt = new Date().toISOString();
+    if (contact.provenance) contact.provenance.lastVerifiedAt = contact.updatedAt;
     await this.save();
     return contact;
   }
